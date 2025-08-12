@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GridGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject tilePrefab;
     [SerializeField] private int gridSize = 10;
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private Text text;
 
 
     // 2d gameobject array
@@ -51,16 +51,14 @@ public class GridGenerator : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//takes the 2d point input and converts it in 3d ray from camera
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))//checking if the ray hit something
+        if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider != null)
             {
                 TileInfo tile = hit.collider.GetComponent<TileInfo>();
                 if (tile != null)
                 {
-                    text.SetText($"Grid Position: ({tile.GetX()}, {tile.GetZ()})");//set the text
-                    // text.SetText($"Grid Position: ({tile.GetX() + 1}, {tile.GetZ() + 1})");//uncomment this line if you want 1 based indexing
-
+                    text.text = $"Grid Position: ({tile.GetX()}, {tile.GetZ()})";
                     if (lastHighlight != null)
                     {
                         lastHighlight.SetActive(false);
